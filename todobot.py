@@ -6,8 +6,6 @@ import urllib
 
 db = DBHelper()
 
-
-
 DEFAULT_REPLY_MARKUP = {'keyboard': [['Rumors', 'Help']], 'resize_keyboard': True}
 
 TOKEN = "396191661:AAEif0oYT4mgyxPnuztxTaw1DEGyrU4KpSE"
@@ -51,31 +49,30 @@ def send_message2(text, chat_id):
     get_url(url)
 
 def send_message(text, chat_id, reply_markup=None):
-    text = urllib.parse.quote_plus(text)
+    #text = urllib.parse.quote_plus(text)
+    text = urllib.quote_plus(text)
     url = URL + "sendMessage?text={}&chat_id={}&parse_mode=Markdown".format(text, chat_id)
     if reply_markup:
         url += "&reply_markup={}".format(reply_markup)
     get_url(url)
 
 
-
-
 def handle_updates(updates):
     for update in updates["result"]:
         text = update["message"]["text"]
         chat = update["message"]["chat"]["id"]
-        items = db.get_items()
+        items = db.get_items(chat)
         if text == "/done":
             keyboard = build_keyboard(items)
             send_message("Select an item to delete", chat, keyboard)
         elif text in items:
-            db.delete_item(text)
-            items = db.get_items()
+            db.delete_item(text, chat)
+            items = db.get_items(chat)
             keyboard = build_keyboard(items)
             send_message("Select an item to delete", chat, keyboard)
         else:
-            db.add_item(text)
-            items = db.get_items()
+            db.add_item(text, chat)
+            items = db.get_items(chat)
             message = "\n".join(items)
             send_message(message, chat)
 
@@ -92,7 +89,6 @@ def main():
         updates = get_updates(last_update_id)
         if len(updates["result"]) > 0:
             last_update_id = get_last_update_id(updates) + 1
-
             handle_updates(updates)
         time.sleep(0.5)
 
