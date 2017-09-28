@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bot2.iml" filepath="$PROJECT_DIR$/.idea/bot2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../my_proj_bot3/httpcaptcha/.idea/httpcaptcha.iml" filepath="$PROJECT_DIR$/../../my_proj_bot3/httpcaptcha/.idea/httpcaptcha.iml" />
     </modules>
   </component>
 </project>
