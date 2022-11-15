@@ -8,7 +8,7 @@ import shelve
 import logging
 import traceback
 
-TELEGRAM_TOKEN="396191661:AAEif0oYT4mgyxPnuztxTaw1DEGyrU4KpSE"
+TELEGRAM_TOKEN=""
 
 DB_FILE = 'data/bot.shelve.db'
 EXCHANGES = {
